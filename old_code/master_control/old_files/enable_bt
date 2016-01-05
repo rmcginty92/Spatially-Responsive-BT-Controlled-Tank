@@ -1,0 +1,7 @@
+#!/bin/bash
+BTenabled=`grep -A1 '\[Bluetooth\]' /var/lib/connman/settings`
+
+if ! [[ $BTenabled == *"true"* ]]; then 
+	echo "Setting up Bluetooth service" 
+	echo –e "\n[Bluetooth]\nEnable=true" >> /var/lib/connman/settings && systemctl enable bluetooth.service && systemctl start bluetooth.service
+fi 

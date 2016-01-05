@@ -1,0 +1,16 @@
+#!/bin/bash
+
+pkill -9 adc_collect
+pkill -9 h_bridge
+pkill -9 master
+
+# compiling all three
+
+if [ $# -eq 0 ]; then  
+	make clean
+	make 
+	./adc_collect&
+	./h_bridge&
+	target_PID="$(pgrep -f h_bridge)"
+	./master $target_PID
+fi
